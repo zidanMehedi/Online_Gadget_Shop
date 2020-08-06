@@ -1,0 +1,37 @@
+body {
+	background-color: CornflowerBlue;
+  	margin: 0;
+}
+
+.header {
+	background-color: DodgerBlue;
+  padding: 20px;
+  text-align: center;
+}
+
+input[type=submit] {
+  background-color: RoyalBlue;
+  color: DarkBlue;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=reset] {
+  background-color: RoyalBlue;
+  color: DarkBlue;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn {
+  background-color: RoyalBlue;
+  color: DarkBlue;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}

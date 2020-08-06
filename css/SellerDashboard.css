@@ -1,0 +1,81 @@
+#btn1,#btn2,#btn3,#btn4,#btn5,#btn6,#btn9
+{
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+
+}
+
+#header
+{
+	background-color: #F1F1F1;
+	padding: 20px;
+  	text-align: center;
+}
+
+#bar
+{
+	overflow: hidden;
+  	background-color: #333;
+
+}
+
+#menu
+{
+	width:200px;
+	padding: 50px 20px;
+	float: left;
+	position: sticky;
+  	top: 0;
+}
+
+#body
+{
+	
+	float: right;
+	width: 82%;
+  height:100%;
+	background-color: #4CAF50;
+	border-style: groove;
+}
+
+#footer
+{
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   background-color: black;
+   color: white;
+   text-align: center;
+   
+}
+
+#path
+{
+	float: left;
+	color: white;
+}
+
+#loginas
+{
+	float: right;
+	color: white;
+}
+
+#btnuname
+{
+	background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden; 
+    color: white;
+}

@@ -1,0 +1,443 @@
+-- phpMyAdmin SQL Dump
+-- version 4.9.0.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Dec 24, 2019 at 12:14 AM
+-- Server version: 10.4.6-MariaDB
+-- PHP Version: 7.1.32
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `oas`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cart`
+--
+
+CREATE TABLE `cart` (
+  `id` int(11) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `product_name` varchar(50) NOT NULL,
+  `price` double NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `total_price` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `category`
+--
+
+CREATE TABLE `category` (
+  `cat_id` int(11) NOT NULL,
+  `cat_name` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `category`
+--
+
+INSERT INTO `category` (`cat_id`, `cat_name`) VALUES
+(1, 'mobile'),
+(2, 'Smartphone'),
+(3, 'Camera'),
+(4, 'Computer'),
+(5, 'Lifestyle'),
+(6, 'kitchen');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `customer_user`
+--
+
+CREATE TABLE `customer_user` (
+  `cid` int(11) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(50) NOT NULL,
+  `fullname` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `dob` date NOT NULL,
+  `gender` varchar(10) NOT NULL,
+  `image` varchar(50) NOT NULL,
+  `phone` varchar(15) NOT NULL,
+  `billing_address` text NOT NULL,
+  `last_update` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `customer_user`
+--
+
+INSERT INTO `customer_user` (`cid`, `username`, `password`, `fullname`, `email`, `dob`, `gender`, `image`, `phone`, `billing_address`, `last_update`) VALUES
+(1, 'adu', '87654321', 'Adnan KH', 'adu@gmail.com', '2019-12-11', 'Female', '{}', '01398987876', 'Dhaka Bangl', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `discount`
+--
+
+CREATE TABLE `discount` (
+  `did` int(11) NOT NULL,
+  `promo_code` varchar(15) NOT NULL,
+  `amount` double NOT NULL,
+  `validity` date NOT NULL,
+  `status` varchar(20) NOT NULL,
+  `Used` int(11) NOT NULL DEFAULT 0,
+  `cid` int(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `discount`
+--
+
+INSERT INTO `discount` (`did`, `promo_code`, `amount`, `validity`, `status`, `Used`, `cid`) VALUES
+(2, 'abc', 50, '2019-12-31', 'Enable', 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `emp_type`
+--
+
+CREATE TABLE `emp_type` (
+  `eid` int(100) NOT NULL,
+  `type` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `emp_type`
+--
+
+INSERT INTO `emp_type` (`eid`, `type`) VALUES
+(1, 'admin'),
+(2, 'seller');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `order_no` int(11) NOT NULL,
+  `order_date` date NOT NULL,
+  `order_products` varchar(1000) NOT NULL,
+  `item_quantity` varchar(70) NOT NULL,
+  `total_cost` double NOT NULL,
+  `status` varchar(50) NOT NULL,
+  `cid` int(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`order_no`, `order_date`, `order_products`, `item_quantity`, `total_cost`, `status`, `cid`) VALUES
+(1, '2019-12-23', 'Zoom Telescope Mobile Phone Lens-G9364(3)\n', '1:3,', 450, 'Approved', 1),
+(2, '2019-12-24', 'iPhone(1)\n', '1:1,', 1200, 'Pending', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product`
+--
+
+CREATE TABLE `product` (
+  `pid` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `quantity` int(50) NOT NULL,
+  `incoming_date` date NOT NULL,
+  `buying_price` double NOT NULL,
+  `selling_price` double NOT NULL,
+  `description` text NOT NULL,
+  `image` varchar(50) NOT NULL,
+  `activity` tinyint(1) NOT NULL,
+  `subcat_id` int(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `product`
+--
+
+INSERT INTO `product` (`pid`, `name`, `quantity`, `incoming_date`, `buying_price`, `selling_price`, `description`, `image`, `activity`, `subcat_id`) VALUES
+(1, 'iPhone', 10, '2019-11-12', 1000, 1200, 'C-Type & fast charger.', '1231231.jpg', 1, 1),
+(2, 'Mi Note seven pro', 19, '2019-12-21', 300, 400, 'Color:Black.', '5e011bac9aba4.jpg', 1, 2),
+(6, 'iPhone X', 12, '2019-12-12', 1000, 3000, 'hammer screen.', '1956013677.jpg', 1, 3),
+(9, 'Zoom Telescope Mobile Phone Lens-G9364', 3, '2019-12-16', 200, 300, 'Minimum focus distance: 3M.', '208257234.jpg', 1, 4),
+(10, 'Samsung Wireless charger', 12, '2019-12-24', 2500, 3500, 'Fast charger.', '121528016.png', 1, 5),
+(11, 'Cannon 24-27', 5, '2019-12-21', 12000, 15000, 'Lens Series: Canon RF.', '1120460020.jpg', 1, 6),
+(12, 'test1', 12, '2019-12-23', 200, 400, 'test.', '5e0125e9aeaaf.jpg', 1, 8);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `report`
+--
+
+CREATE TABLE `report` (
+  `rid` int(11) NOT NULL,
+  `transaction_id` varchar(50) NOT NULL,
+  `transaction_date` date NOT NULL,
+  `profit` double NOT NULL,
+  `order_no` int(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `report`
+--
+
+INSERT INTO `report` (`rid`, `transaction_id`, `transaction_date`, `profit`, `order_no`) VALUES
+(1, '#1577139694846697', '2019-12-23', 600, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `subcategory`
+--
+
+CREATE TABLE `subcategory` (
+  `subcat_id` int(11) NOT NULL,
+  `subcat_name` varchar(50) NOT NULL,
+  `cat_id` int(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `subcategory`
+--
+
+INSERT INTO `subcategory` (`subcat_id`, `subcat_name`, `cat_id`) VALUES
+(1, 'charger-USB', 1),
+(2, 'Backcover', 1),
+(3, 'Skin Protector', 1),
+(4, 'Mini Lense', 2),
+(5, 'Wireless Charger', 2),
+(6, 'Lens', 3),
+(7, 'Stand', 3),
+(8, 'Mouse', 4),
+(9, 'Keyboard', 4),
+(10, 'GPU', 4),
+(11, 'Watch', 5),
+(12, 'Wallet', 5),
+(13, 'Wristband', 5),
+(14, 'grinder', 6);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `system_user`
+--
+
+CREATE TABLE `system_user` (
+  `id` int(11) NOT NULL,
+  `username` varchar(30) NOT NULL,
+  `password` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `fullname` varchar(50) NOT NULL,
+  `image` varchar(50) NOT NULL,
+  `eid` int(100) NOT NULL,
+  `last_update` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `system_user`
+--
+
+INSERT INTO `system_user` (`id`, `username`, `password`, `email`, `fullname`, `image`, `eid`, `last_update`) VALUES
+(1, 'admin', '123', 'admin@gmail.com', 'Mr Adnan  khan', '58328747.jpg', 1, '2019-12-24 01:42:13am'),
+(2, 'sameull', '123', 'victim@gmail.com', 'Mr  Seller', '5e0118cac80c7.jpg', 2, '2019-12-24 (04:32:12 AM)');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `cart`
+--
+ALTER TABLE `cart`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `category`
+--
+ALTER TABLE `category`
+  ADD PRIMARY KEY (`cat_id`);
+
+--
+-- Indexes for table `customer_user`
+--
+ALTER TABLE `customer_user`
+  ADD PRIMARY KEY (`cid`);
+
+--
+-- Indexes for table `discount`
+--
+ALTER TABLE `discount`
+  ADD PRIMARY KEY (`did`),
+  ADD KEY `cid` (`cid`);
+
+--
+-- Indexes for table `emp_type`
+--
+ALTER TABLE `emp_type`
+  ADD PRIMARY KEY (`eid`);
+
+--
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`order_no`),
+  ADD KEY `cid` (`cid`);
+
+--
+-- Indexes for table `product`
+--
+ALTER TABLE `product`
+  ADD PRIMARY KEY (`pid`),
+  ADD KEY `subcat_id` (`subcat_id`);
+
+--
+-- Indexes for table `report`
+--
+ALTER TABLE `report`
+  ADD PRIMARY KEY (`rid`),
+  ADD KEY `order_no` (`order_no`);
+
+--
+-- Indexes for table `subcategory`
+--
+ALTER TABLE `subcategory`
+  ADD PRIMARY KEY (`subcat_id`),
+  ADD KEY `cat_id` (`cat_id`);
+
+--
+-- Indexes for table `system_user`
+--
+ALTER TABLE `system_user`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `eid` (`eid`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `cart`
+--
+ALTER TABLE `cart`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `category`
+--
+ALTER TABLE `category`
+  MODIFY `cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `customer_user`
+--
+ALTER TABLE `customer_user`
+  MODIFY `cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `discount`
+--
+ALTER TABLE `discount`
+  MODIFY `did` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `emp_type`
+--
+ALTER TABLE `emp_type`
+  MODIFY `eid` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `order_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `product`
+--
+ALTER TABLE `product`
+  MODIFY `pid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT for table `report`
+--
+ALTER TABLE `report`
+  MODIFY `rid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `subcategory`
+--
+ALTER TABLE `subcategory`
+  MODIFY `subcat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT for table `system_user`
+--
+ALTER TABLE `system_user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `discount`
+--
+ALTER TABLE `discount`
+  ADD CONSTRAINT `discount_ibfk_1` FOREIGN KEY (`cid`) REFERENCES `customer_user` (`cid`);
+
+--
+-- Constraints for table `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`cid`) REFERENCES `customer_user` (`cid`);
+
+--
+-- Constraints for table `product`
+--
+ALTER TABLE `product`
+  ADD CONSTRAINT `product_ibfk_1` FOREIGN KEY (`subcat_id`) REFERENCES `subcategory` (`subcat_id`);
+
+--
+-- Constraints for table `report`
+--
+ALTER TABLE `report`
+  ADD CONSTRAINT `report_ibfk_1` FOREIGN KEY (`order_no`) REFERENCES `orders` (`order_no`);
+
+--
+-- Constraints for table `subcategory`
+--
+ALTER TABLE `subcategory`
+  ADD CONSTRAINT `subcategory_ibfk_1` FOREIGN KEY (`cat_id`) REFERENCES `category` (`cat_id`);
+
+--
+-- Constraints for table `system_user`
+--
+ALTER TABLE `system_user`
+  ADD CONSTRAINT `system_user_ibfk_1` FOREIGN KEY (`eid`) REFERENCES `emp_type` (`eid`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
